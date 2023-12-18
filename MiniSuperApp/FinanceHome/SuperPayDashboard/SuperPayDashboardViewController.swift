@@ -53,7 +53,7 @@ final class SuperPayDashboardViewController: UIViewController, SuperPayDashboard
     private let currencyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 32, weight: .semibold)
+        label.font = .systemFont(ofSize: 22, weight: .semibold)
         label.text = "원"
         label.textColor = .white
         return label

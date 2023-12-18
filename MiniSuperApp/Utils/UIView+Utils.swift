@@ -22,9 +22,7 @@ extension UIView {
         self.layer.cornerRadius = radius
     }
     
-    func roundCorners(
-        _ radius: CGFloat = 16
-    ) {
+    func roundCorners(_ radius: CGFloat = 16) {
         self.layer.cornerCurve = .continuous
         self.layer.cornerRadius = radius
         self.clipsToBounds = true
