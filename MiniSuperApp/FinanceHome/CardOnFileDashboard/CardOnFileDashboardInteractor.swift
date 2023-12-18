@@ -18,6 +18,7 @@ protocol CardOnFileDashboardPresentable: Presentable {
 }
 
 protocol CardOnFileDashboardListener: AnyObject {
+    func cardOnFileDashboardDidTappAddPaymentMethod()
 }
 
 protocol CardOnFileDashboardInteractorDependency {
@@ -57,5 +58,9 @@ final class CardOnFileDashboardInteractor: PresentableInteractor<CardOnFileDashb
         
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
+    }
+    
+    func didTapAddPaymentMethod() {
+        listener?.cardOnFileDashboardDidTappAddPaymentMethod()
     }
 }
