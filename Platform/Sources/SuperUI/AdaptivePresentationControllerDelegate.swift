@@ -12,15 +12,15 @@ import UIKit
 UIAdaptivePresentationControllerDelegate를 사용못함
 Interactor에 UIKit에 대한 의존성을 만들기보다는 protocol을 통해서 해결해주기 위해 만듬
  */
-protocol AdaptivePresentationControllerDelegate: AnyObject {
+public protocol AdaptivePresentationControllerDelegate: AnyObject {
     func presentationControllerDidDismiss()
 }
 
-final class AdaptivePresentationControllerDelegateProxy: NSObject, UIAdaptivePresentationControllerDelegate {
+public final class AdaptivePresentationControllerDelegateProxy: NSObject, UIAdaptivePresentationControllerDelegate {
     
-    weak var delegate: AdaptivePresentationControllerDelegate?
+    public weak var delegate: AdaptivePresentationControllerDelegate?
     
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         delegate?.presentationControllerDidDismiss()
     }
 }

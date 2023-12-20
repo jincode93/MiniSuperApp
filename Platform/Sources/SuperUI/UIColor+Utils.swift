@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIColor {
+public extension UIColor {
     convenience init?(hex: String) {
         let r, g, b, a: CGFloat
         

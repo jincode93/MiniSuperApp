@@ -5,6 +5,7 @@
 //  Created by Zerom on 2023/12/17.
 //
 
+import FinanceRepository
 import ModernRIBs
 
 protocol AppHomeDependency: Dependency {

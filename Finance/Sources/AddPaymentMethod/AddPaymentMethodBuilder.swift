@@ -5,9 +5,11 @@
 //  Created by Zerom on 2023/12/18.
 //
 
+import FinanceRepository
 import ModernRIBs
+import RIBsUtil
 
-protocol AddPaymentMethodDependency: Dependency {
+public protocol AddPaymentMethodDependency: Dependency {
     var cardOnFileRepository: CardOnFileRepository { get }
 }
 
@@ -15,17 +17,17 @@ final class AddPaymentMethodComponent: Component<AddPaymentMethodDependency>, Ad
     var cardOnFileRepository: CardOnFileRepository { dependency.cardOnFileRepository }
 }
 
-protocol AddPaymentMethodBuildable: Buildable {
-    func build(withListener listener: AddPaymentMethodListener, closeButtonType: DismissButtonType) -> AddPaymentMethodRouting
+public protocol AddPaymentMethodBuildable: Buildable {
+    func build(withListener listener: AddPaymentMethodListener, closeButtonType: DismissButtonType) -> ViewableRouting
 }
 
-final class AddPaymentMethodBuilder: Builder<AddPaymentMethodDependency>, AddPaymentMethodBuildable {
+public final class AddPaymentMethodBuilder: Builder<AddPaymentMethodDependency>, AddPaymentMethodBuildable {
 
-    override init(dependency: AddPaymentMethodDependency) {
+    public override init(dependency: AddPaymentMethodDependency) {
         super.init(dependency: dependency)
     }
 
-    func build(withListener listener: AddPaymentMethodListener, closeButtonType: DismissButtonType) -> AddPaymentMethodRouting {
+    public func build(withListener listener: AddPaymentMethodListener, closeButtonType: DismissButtonType) -> ViewableRouting {
         let component = AddPaymentMethodComponent(dependency: dependency)
         let viewController = AddPaymentMethodViewController(closeButtonType: closeButtonType)
         let interactor = AddPaymentMethodInteractor(

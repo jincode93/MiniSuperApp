@@ -5,7 +5,9 @@
 //  Created by Zerom on 2023/12/17.
 //
 
+import FinanceEntity
 import ModernRIBs
+import SuperUI
 
 protocol FinanceHomeRouting: ViewableRouting {
     func attachSuperPayDashboard()
