@@ -9,6 +9,7 @@ import ModernRIBs
 import UIKit
 
 protocol SuperPayDashboardPresentableListener: AnyObject {
+    func topupButtonDidTap()
 }
 
 final class SuperPayDashboardViewController: UIViewController, SuperPayDashboardPresentable, SuperPayDashboardViewControllable {
@@ -122,6 +123,6 @@ final class SuperPayDashboardViewController: UIViewController, SuperPayDashboard
     
     @objc
     private func topupButtonDidTap() {
-        
+        listener?.topupButtonDidTap()
     }
 }
