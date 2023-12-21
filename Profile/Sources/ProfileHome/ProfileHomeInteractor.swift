@@ -14,7 +14,7 @@ protocol ProfileHomePresentable: Presentable {
     var listener: ProfileHomePresentableListener? { get set }
 }
 
-protocol ProfileHomeListener: AnyObject {
+public protocol ProfileHomeListener: AnyObject {
 }
 
 final class ProfileHomeInteractor: PresentableInteractor<ProfileHomePresentable>, ProfileHomeInteractable, ProfileHomePresentableListener {

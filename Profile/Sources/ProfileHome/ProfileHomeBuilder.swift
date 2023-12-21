@@ -7,23 +7,23 @@
 
 import ModernRIBs
 
-protocol ProfileHomeDependency: Dependency {
+public protocol ProfileHomeDependency: Dependency {
 }
 
 final class ProfileHomeComponent: Component<ProfileHomeDependency> {
 }
 
-protocol ProfileHomeBuildable: Buildable {
-  func build(withListener listener: ProfileHomeListener) -> ProfileHomeRouting
+public protocol ProfileHomeBuildable: Buildable {
+  func build(withListener listener: ProfileHomeListener) -> ViewableRouting
 }
 
-final class ProfileHomeBuilder: Builder<ProfileHomeDependency>, ProfileHomeBuildable {
+public final class ProfileHomeBuilder: Builder<ProfileHomeDependency>, ProfileHomeBuildable {
   
-  override init(dependency: ProfileHomeDependency) {
+  public override init(dependency: ProfileHomeDependency) {
     super.init(dependency: dependency)
   }
   
-  func build(withListener listener: ProfileHomeListener) -> ProfileHomeRouting {
+  public func build(withListener listener: ProfileHomeListener) -> ViewableRouting {
     let _ = ProfileHomeComponent(dependency: dependency)
     let viewController = ProfileHomeViewController()
     let interactor = ProfileHomeInteractor(presenter: viewController)
