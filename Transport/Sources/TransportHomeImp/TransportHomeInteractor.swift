@@ -9,6 +9,7 @@ import Combine
 import CombineUtil
 import Foundation
 import ModernRIBs
+import TransportHome
 
 protocol TransportHomeRouting: ViewableRouting {
     func attachTopup()
@@ -19,10 +20,6 @@ protocol TransportHomePresentable: Presentable {
     var listener: TransportHomePresentableListener? { get set }
     
     func setSuperPayBalance(_ balance: String)
-}
-
-protocol TransportHomeListener: AnyObject {
-    func transportHomeDidTapClose()
 }
 
 protocol TransportHomeInteractorDependency {
