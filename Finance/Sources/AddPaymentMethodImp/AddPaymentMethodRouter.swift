@@ -5,6 +5,7 @@
 //  Created by Zerom on 2023/12/18.
 //
 
+import AddPaymentMethod
 import ModernRIBs
 
 protocol AddPaymentMethodInteractable: Interactable {

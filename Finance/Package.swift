@@ -11,6 +11,18 @@ let package = Package(
             name: "AddPaymentMethod",
             targets: ["AddPaymentMethod"]),
         .library(
+            name: "AddPaymentMethodImp",
+            targets: ["AddPaymentMethodImp"]),
+        .library(
+            name: "Topup",
+            targets: ["Topup"]),
+        .library(
+            name: "TopupImp",
+            targets: ["TopupImp"]),
+        .library(
+            name: "FinanceHome",
+            targets: ["FinanceHome"]),
+        .library(
             name: "FinanceEntity",
             targets: ["FinanceEntity"]),
         .library(
@@ -27,7 +39,46 @@ let package = Package(
             dependencies: [
                 "ModernRIBs",
                 "FinanceEntity",
+                .product(name: "RIBsUtil", package: "Platform")
+            ]
+        ),
+        .target(
+            name: "AddPaymentMethodImp",
+            dependencies: [
+                "ModernRIBs",
+                "AddPaymentMethod",
+                "FinanceEntity",
                 "FinanceRepository",
+                .product(name: "RIBsUtil", package: "Platform"),
+                .product(name: "SuperUI", package: "Platform")
+            ]
+        ),
+        .target(
+            name: "Topup",
+            dependencies: [
+                "ModernRIBs"
+            ]
+        ),
+        .target(
+            name: "TopupImp",
+            dependencies: [
+                "AddPaymentMethod",
+                "Topup",
+                "ModernRIBs",
+                "FinanceEntity",
+                "FinanceRepository",
+                .product(name: "RIBsUtil", package: "Platform"),
+                .product(name: "SuperUI", package: "Platform")
+            ]
+        ),
+        .target(
+            name: "FinanceHome",
+            dependencies: [
+                "AddPaymentMethod",
+                "ModernRIBs",
+                "FinanceEntity",
+                "FinanceRepository",
+                "Topup",
                 .product(name: "RIBsUtil", package: "Platform"),
                 .product(name: "SuperUI", package: "Platform")
             ]

@@ -5,6 +5,7 @@
 //  Created by Zerom on 2023/12/18.
 //
 
+import AddPaymentMethod
 import Combine
 import FinanceEntity
 import FinanceRepository
@@ -15,11 +16,6 @@ protocol AddPaymentMethodRouting: ViewableRouting {
 
 protocol AddPaymentMethodPresentable: Presentable {
     var listener: AddPaymentMethodPresentableListener? { get set }
-}
-
-public protocol AddPaymentMethodListener: AnyObject {
-    func addPaymentMethodDidTapClose()
-    func addPaymentMethodDidAddCard(paymentMethod: PaymentMethod)
 }
 
 protocol AddPaymentMethodInteractorDependency {

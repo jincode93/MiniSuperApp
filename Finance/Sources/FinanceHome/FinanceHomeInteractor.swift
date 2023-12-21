@@ -22,7 +22,7 @@ protocol FinanceHomePresentable: Presentable {
     var listener: FinanceHomePresentableListener? { get set }
 }
 
-protocol FinanceHomeListener: AnyObject {
+public protocol FinanceHomeListener: AnyObject {
 }
 
 final class FinanceHomeInteractor: PresentableInteractor<FinanceHomePresentable>, FinanceHomeInteractable, FinanceHomePresentableListener, AdaptivePresentationControllerDelegate {

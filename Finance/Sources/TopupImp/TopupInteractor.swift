@@ -12,6 +12,7 @@ import FinanceRepository
 import ModernRIBs
 import RIBsUtil
 import SuperUI
+import Topup
 
 protocol TopupRouting: Routing {
     func cleanupViews()
@@ -23,11 +24,6 @@ protocol TopupRouting: Routing {
     func attachCardOnFile(paymentMethods: [PaymentMethod])
     func detachCardOnFile()
     func popToRoot()
-}
-
-protocol TopupListener: AnyObject {
-    func topupDidClose()
-    func topupDidFinish()
 }
 
 protocol TopupInteractorDependency {

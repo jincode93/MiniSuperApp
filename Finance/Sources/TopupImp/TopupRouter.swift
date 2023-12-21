@@ -10,6 +10,7 @@ import FinanceEntity
 import ModernRIBs
 import RIBsUtil
 import SuperUI
+import Topup
 
 protocol TopupInteractable: Interactable, AddPaymentMethodListener, EnterAmountListener, CardOnFileListener {
     var router: TopupRouting? { get set }

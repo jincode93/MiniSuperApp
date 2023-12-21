@@ -1,8 +1,8 @@
 //
-//  Array+Utils.swift
-//  MiniSuperApp
+//  File.swift
+//  
 //
-//  Created by Zerom on 2023/12/17.
+//  Created by Zerom on 2023/12/20.
 //
 
 import Foundation
@@ -12,4 +12,3 @@ extension Array {
         return indices ~= index ? self[index] : nil
     }
 }
-

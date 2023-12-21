@@ -5,6 +5,7 @@
 //  Created by Zerom on 2023/12/18.
 //
 
+import AddPaymentMethod
 import FinanceRepository
 import ModernRIBs
 import RIBsUtil
@@ -15,10 +16,6 @@ public protocol AddPaymentMethodDependency: Dependency {
 
 final class AddPaymentMethodComponent: Component<AddPaymentMethodDependency>, AddPaymentMethodInteractorDependency {
     var cardOnFileRepository: CardOnFileRepository { dependency.cardOnFileRepository }
-}
-
-public protocol AddPaymentMethodBuildable: Buildable {
-    func build(withListener listener: AddPaymentMethodListener, closeButtonType: DismissButtonType) -> ViewableRouting
 }
 
 public final class AddPaymentMethodBuilder: Builder<AddPaymentMethodDependency>, AddPaymentMethodBuildable {

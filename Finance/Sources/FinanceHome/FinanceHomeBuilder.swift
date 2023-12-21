@@ -9,44 +9,39 @@ import AddPaymentMethod
 import CombineUtil
 import FinanceRepository
 import ModernRIBs
+import Topup
 
-protocol FinanceHomeDependency: Dependency {
+public protocol FinanceHomeDependency: Dependency {
     var cardOnFileRepository: CardOnFileRepository { get }
     var superPayRepository: SuperPayRepository { get }
+    var topupBuildable: TopupBuildable { get }
+    var addPaymentMethodBuildable: AddPaymentMethodBuildable { get }
 }
 
-final class FinanceHomeComponent: Component<FinanceHomeDependency>, SuperPayDashboardDependency, CardOnFileDashboardDependency, AddPaymentMethodDependency, TopupDependency {
+final class FinanceHomeComponent: Component<FinanceHomeDependency>, SuperPayDashboardDependency, CardOnFileDashboardDependency {
     
     var cardOnFileRepository: CardOnFileRepository { dependency.cardOnFileRepository }
     var superPayRepository: SuperPayRepository { dependency.superPayRepository }
     var balance: ReadOnlyCurrentValuePublisher<Double> { superPayRepository.balance }
-    var topupBaseViewController: ViewControllable
-
-    init(
-        dependency: FinanceHomeDependency,
-        topupBaseViewController: ViewControllable
-    ) {
-        self.topupBaseViewController = topupBaseViewController
-        super.init(dependency: dependency)
-    }
+    var topupBuildable: TopupBuildable { dependency.topupBuildable }
+    var addPaymentMethodBuildable: AddPaymentMethodBuildable { dependency.addPaymentMethodBuildable }
 }
 
-protocol FinanceHomeBuildable: Buildable {
-    func build(withListener listener: FinanceHomeListener) -> FinanceHomeRouting
+public protocol FinanceHomeBuildable: Buildable {
+    func build(withListener listener: FinanceHomeListener) -> ViewableRouting
 }
 
-final class FinanceHomeBuilder: Builder<FinanceHomeDependency>, FinanceHomeBuildable {
+public final class FinanceHomeBuilder: Builder<FinanceHomeDependency>, FinanceHomeBuildable {
     
-    override init(dependency: FinanceHomeDependency) {
+    public override init(dependency: FinanceHomeDependency) {
         super.init(dependency: dependency)
     }
     
-    func build(withListener listener: FinanceHomeListener) -> FinanceHomeRouting {
+    public func build(withListener listener: FinanceHomeListener) -> ViewableRouting {
         let viewController = FinanceHomeViewController()
         
         let component = FinanceHomeComponent(
-            dependency: dependency,
-            topupBaseViewController: viewController
+            dependency: dependency
         )
 
         let interactor = FinanceHomeInteractor(presenter: viewController)
@@ -54,16 +49,14 @@ final class FinanceHomeBuilder: Builder<FinanceHomeDependency>, FinanceHomeBuild
         
         let superPayDashboardBuilder = SuperPayDashboardBuilder(dependency: component)
         let cardOnFileDashboardBuilder = CardOnFileDashboardBuilder(dependency: component)
-        let addPaymentMethodBuilder = AddPaymentMethodBuilder(dependency: component)
-        let topupBuilder = TopupBuilder(dependency: component)
         
         return FinanceHomeRouter(
             interactor: interactor,
             viewController: viewController,
             superPayDashboardBuildable: superPayDashboardBuilder,
             cardOnFileDashboardBuildable: cardOnFileDashboardBuilder,
-            addPaymentMethodBuildable: addPaymentMethodBuilder,
-            topupBuildable: topupBuilder
+            addPaymentMethodBuildable: component.addPaymentMethodBuildable,
+            topupBuildable: component.topupBuildable
         )
     }
 }
