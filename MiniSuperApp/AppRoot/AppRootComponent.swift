@@ -11,6 +11,8 @@ import AppHome
 import FinanceHome
 import FinanceRepository
 import Foundation
+import Network
+import NetworkImp
 import ModernRIBs
 import ProfileHome
 import TransportHome
@@ -41,12 +43,20 @@ final class AppRootComponent: Component<AppRootDependency>, AppHomeDependency, F
     
     init(
         dependency: AppRootDependency,
-        cardOnFileRepository: CardOnFileRepository,
-        superPayRepository: SuperPayRepository,
         rootViewController: ViewControllable
     ) {
-        self.cardOnFileRepository = cardOnFileRepository
-        self.superPayRepository = superPayRepository
+        // 백엔드가 없는 상황에서 실제 서버에서 response를 받아오는 것처럼 동작시키기 위해 설정
+        let config = URLSessionConfiguration.ephemeral
+        config.protocolClasses = [SuperAppURLProtocol.self]
+        
+        setupURLProtocol()
+        
+        let network = NetworkImp(session: URLSession(configuration: config))
+        
+        self.cardOnFileRepository = CardOnFileRepositoryImp(network: network, baseURL: BaseURL().financeBaceURL)
+        self.cardOnFileRepository.fetch()
+        
+        self.superPayRepository = SuperPayRepositoryImp(network: network, baseURL: BaseURL().financeBaceURL)
         self.rootViewController = rootViewController
         super.init(dependency: dependency)
     }

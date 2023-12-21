@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  RIBs+Util.swift
+//  MiniSuperApp
 //
 //  Created by Zerom on 2023/12/20.
 //

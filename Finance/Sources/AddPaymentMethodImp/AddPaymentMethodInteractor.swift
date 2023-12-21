@@ -9,6 +9,7 @@ import AddPaymentMethod
 import Combine
 import FinanceEntity
 import FinanceRepository
+import Foundation
 import ModernRIBs
 
 protocol AddPaymentMethodRouting: ViewableRouting {
@@ -54,11 +55,14 @@ final class AddPaymentMethodInteractor: PresentableInteractor<AddPaymentMethodPr
     
     func didTapConfirm(number: String, cvc: String, expiry: String) {
         let info = AddPaymentMethodInfo(number: number, cvc: cvc, expiration: expiry)
-        dependency.cardOnFileRepository.addCard(info: info).sink(
-            receiveCompletion: { _ in },
-            receiveValue: { [weak self] method in
-                self?.listener?.addPaymentMethodDidAddCard(paymentMethod: method)
-            }
-        ).store(in: &cancellables)
+        dependency.cardOnFileRepository.addCard(info: info)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] method in
+                    self?.listener?.addPaymentMethodDidAddCard(paymentMethod: method)
+                }
+            )
+            .store(in: &cancellables)
     }
 }

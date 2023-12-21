@@ -5,9 +5,10 @@
 //  Created by Zerom on 2023/12/20.
 //
 
-import Foundation
 import Combine
 import CombineUtil
+import Foundation
+import Network
 
 public protocol SuperPayRepository {
     var balance: ReadOnlyCurrentValuePublisher<Double> { get }
@@ -20,21 +21,29 @@ public final class SuperPayRepositoryImp: SuperPayRepository {
     private let balanceSubject = CurrentValuePublisher<Double>(0)
     
     public func topup(amount: Double, paymentMethodID: String) -> AnyPublisher<Void, Error> {
-        return Future<Void, Error> { [weak self] promise in
-            self?.bgQueue.async {
-                Thread.sleep(forTimeInterval: 2)
-                promise(.success(()))
-                let newBalance = (self?.balanceSubject.value).map { $0 + amount }
-                newBalance.map { self?.balanceSubject.send($0) }
-            }
-        }
-        .eraseToAnyPublisher()
+        let request = TopupRequest(baseURL: baseURL, amount: amount, paymentMethodID: paymentMethodID)
+        
+        return network.send(request)
+        // 실제 백엔드가 없기때문에 신호만 받아와서 핸들러로 실제 동작하는 것처럼 작성
+            .handleEvents(
+                receiveSubscription: nil,
+                receiveOutput: { [weak self] _ in
+                    let newBalance = (self?.balanceSubject.value).map { $0 + amount }
+                    newBalance.map { self?.balanceSubject.send($0) }
+                },
+                receiveCompletion: nil,
+                receiveCancel: nil,
+                receiveRequest: nil
+            )
+            .map({ _ in })
+            .eraseToAnyPublisher()
     }
     
-    // 현재는 실제 api가 없기 때문에 background Queue를 만들어서 딜레이를 걸어주는 방식으로 api 동작과 비슷하게 해줌
-    private let bgQueue = DispatchQueue(label: "topup.repository.queue")
+    private let network: Network
+    private let baseURL: URL
     
-    public init() {
-        
+    public init(network: Network, baseURL: URL) {
+        self.network = network
+        self.baseURL = baseURL
     }
 }
