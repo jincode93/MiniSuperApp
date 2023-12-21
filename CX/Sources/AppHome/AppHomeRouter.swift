@@ -7,6 +7,7 @@
 
 import ModernRIBs
 import SuperUI
+import TransportHome
 
 protocol AppHomeInteractable: Interactable, TransportHomeListener {
     var router: AppHomeRouting? { get set }
@@ -14,7 +15,6 @@ protocol AppHomeInteractable: Interactable, TransportHomeListener {
 }
 
 protocol AppHomeViewControllable: ViewControllable {
-    
 }
 
 final class AppHomeRouter: ViewableRouter<AppHomeInteractable, AppHomeViewControllable>, AppHomeRouting {

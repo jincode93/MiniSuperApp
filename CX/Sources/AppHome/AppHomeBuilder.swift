@@ -7,39 +7,40 @@
 
 import FinanceRepository
 import ModernRIBs
+import TransportHome
 
-protocol AppHomeDependency: Dependency {
+public protocol AppHomeDependency: Dependency {
     var cardOnFileRepository: CardOnFileRepository { get }
     var superPayRepository: SuperPayRepository { get }
+    var transportHomeBuildable: TransportHomeBuildable { get }
 }
 
-final class AppHomeComponent: Component<AppHomeDependency>, TransportHomeDependency {
+final class AppHomeComponent: Component<AppHomeDependency> {
     var cardOnFileRepository: CardOnFileRepository { dependency.cardOnFileRepository }
     var superPayRepository: SuperPayRepository { dependency.superPayRepository }
+    var transportHomeBuildable: TransportHomeBuildable { dependency.transportHomeBuildable }
 }
 
-protocol AppHomeBuildable: Buildable {
+public protocol AppHomeBuildable: Buildable {
     func build(withListener listener: AppHomeListener) -> ViewableRouting
 }
 
-final class AppHomeBuilder: Builder<AppHomeDependency>, AppHomeBuildable {
+public final class AppHomeBuilder: Builder<AppHomeDependency>, AppHomeBuildable {
     
-    override init(dependency: AppHomeDependency) {
+    public override init(dependency: AppHomeDependency) {
         super.init(dependency: dependency)
     }
     
-    func build(withListener listener: AppHomeListener) -> ViewableRouting {
+    public func build(withListener listener: AppHomeListener) -> ViewableRouting {
         let component = AppHomeComponent(dependency: dependency)
         let viewController = AppHomeViewController()
         let interactor = AppHomeInteractor(presenter: viewController)
         interactor.listener = listener
-        
-        let transportHomeBuilder = TransportHomeBuilder(dependency: component)
-        
+    
         return AppHomeRouter(
             interactor: interactor,
             viewController: viewController,
-            transportHomeBuildable: transportHomeBuilder
+            transportHomeBuildable: component.transportHomeBuildable
         )
     }
 }
