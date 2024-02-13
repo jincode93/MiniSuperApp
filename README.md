@@ -8,14 +8,9 @@
 - Transport 팀, Finance 팀, Profile 팀, Utility 팀으로 분업을 한다는 가정으로 모듈화를 진행하였습니다.
 - `XCTest`를 이용해 `Unit Test`, `UI Test`를 진행하였습니다.
 
-### 슈퍼 택시화면에서 충전
-![2024-01-1412 29 55-ezgif com-video-to-gif-converter](https://github.com/jincode93/MiniSuperApp/assets/111134273/b3115284-3234-434e-888b-6e3ad884b453)
-
-### 슈퍼 페이화면에서 충전
-![2024-01-1412 30 30-ezgif com-video-to-gif-converter](https://github.com/jincode93/MiniSuperApp/assets/111134273/73937cbd-0f3a-4928-8e2a-9c96deb98b1b)
-
-### 슈퍼 페이화면에서 카드 추가
-![2024-01-1412 30 57-ezgif com-video-to-gif-converter](https://github.com/jincode93/MiniSuperApp/assets/111134273/14fa17e5-52a5-4ad1-8dfa-f6367d75758e)
+|슈퍼 택시화면에서 충전|슈퍼 페이화면에서 충전|슈퍼 페이화면에서 카드 추가|
+|---|---|---|
+|![2024-01-1412 29 55-ezgif com-video-to-gif-converter](https://github.com/jincode93/MiniSuperApp/assets/111134273/b3115284-3234-434e-888b-6e3ad884b453)|![2024-01-1412 30 30-ezgif com-video-to-gif-converter](https://github.com/jincode93/MiniSuperApp/assets/111134273/73937cbd-0f3a-4928-8e2a-9c96deb98b1b)|![2024-01-1412 30 57-ezgif com-video-to-gif-converter](https://github.com/jincode93/MiniSuperApp/assets/111134273/14fa17e5-52a5-4ad1-8dfa-f6367d75758e)|
 
 ---
 
@@ -33,14 +28,9 @@
 - Interactor : ViewController에게 신호를 받아 비즈니스 로직을 동작합니다. 해당 로직으로 인해 하위 View가 attach된다면 Router에게 신호를 전달해 attach를 진행하게되고, Interator가 속한 Riblet이 detach되어야하는 상황이라면 RibletListener를 통해 상위 Riblet에 신호를 보내 detach동작이 일어나도록 합니다.
 - Builder : Riblet을 생성시키는 역할을 담당합니다. 상위 Riblet이 하위 Riblet을 생성할 때 Builder를 만들어서 생성을 하게되며, 이로 인해 하위 Riblet에 필요한 리소스들을 Dependency로 만들어 전달하고 있습니다.
 
-### Router
-<img width="963" alt="스크린샷 2024-01-14 오후 1 08 21" src="https://github.com/jincode93/MiniSuperApp/assets/111134273/1e1eab80-15fc-4015-bc40-730707a7761e">
-
-### Interactor
-<img width="1160" alt="스크린샷 2024-01-14 오후 1 08 45" src="https://github.com/jincode93/MiniSuperApp/assets/111134273/ca156bbd-1507-48b7-8756-d0c1eb90526b">
-
-### Builder
-<img width="876" alt="스크린샷 2024-01-14 오후 1 09 00" src="https://github.com/jincode93/MiniSuperApp/assets/111134273/aa6f73cd-120d-41a9-9d3e-2d21b4cef89d">
+|Router|Interactor|Builder|
+|---|---|---|
+|<img width="963" alt="스크린샷 2024-01-14 오후 1 08 21" src="https://github.com/jincode93/MiniSuperApp/assets/111134273/1e1eab80-15fc-4015-bc40-730707a7761e">|<img width="1160" alt="스크린샷 2024-01-14 오후 1 08 45" src="https://github.com/jincode93/MiniSuperApp/assets/111134273/ca156bbd-1507-48b7-8756-d0c1eb90526b">|<img width="876" alt="스크린샷 2024-01-14 오후 1 09 00" src="https://github.com/jincode93/MiniSuperApp/assets/111134273/aa6f73cd-120d-41a9-9d3e-2d21b4cef89d">|
 
 ---
 
