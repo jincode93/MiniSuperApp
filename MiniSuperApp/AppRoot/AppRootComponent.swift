@@ -8,6 +8,7 @@
 import AddPaymentMethod
 import AddPaymentMethodImp
 import AppHome
+import CombineSchedulers
 import FinanceHome
 import FinanceRepository
 import Foundation
@@ -24,6 +25,7 @@ final class AppRootComponent: Component<AppRootDependency>, AppHomeDependency, F
     
     var cardOnFileRepository: CardOnFileRepository
     var superPayRepository: SuperPayRepository
+    var mainQueue: AnySchedulerOf<DispatchQueue> { .main }
     
     lazy var transportHomeBuildable: TransportHomeBuildable = {
         return TransportHomeBuilder(dependency: self)
