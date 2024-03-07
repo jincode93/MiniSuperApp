@@ -47,11 +47,14 @@ final class AppRootComponent: Component<AppRootDependency>, AppHomeDependency, F
         dependency: AppRootDependency,
         rootViewController: ViewControllable
     ) {
+        #if UITESTING
+        let config = URLSessionConfiguration.default
+        #else
         // 백엔드가 없는 상황에서 실제 서버에서 response를 받아오는 것처럼 동작시키기 위해 설정
         let config = URLSessionConfiguration.ephemeral
         config.protocolClasses = [SuperAppURLProtocol.self]
-        
         setupURLProtocol()
+        #endif
         
         let network = NetworkImp(session: URLSession(configuration: config))
         
