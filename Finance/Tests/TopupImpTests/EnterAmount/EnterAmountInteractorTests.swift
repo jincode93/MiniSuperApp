@@ -28,7 +28,7 @@ final class EnterAmountInteractorTests: XCTestCase {
         self.dependency = EnterAmountDependencyMock()
         self.listener = EnterAmountListenerMock()
         
-        self.sut = EnterAmountInteractor(
+        sut = EnterAmountInteractor(
             presenter: presenter,
             dependency: dependency
         )
